@@ -107,18 +107,15 @@
             accent-color: #d23669;
         }
         
-        /* Responsive adjustments */
+       /* Responsive adjustments */
         @media (max-width: 768px) {
-        .audio-control {
-        top: 50%; /* Posisi 50% dari atas */
-        right: 20px; /* Posisi 50% dari kiri */
-        bottom: auto; /* Hapus bottom sebelumnya */
-        right: auto; /* Hapus right sebelumnya */
-        flex-direction: row; /* Tetap horizontal */
-        width: auto; /* Lebar menyesuaikan konten */
-        white-space: nowrap; /* Mencegah wrap */
-    }
-}
+            .audio-control {
+                top: 50%;
+                bottom: 50%;
+                right: 20px;
+                transform: none;
+                flex-direction: row;
+            }
     </style>
 </head>
 <body>
