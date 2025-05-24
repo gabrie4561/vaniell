@@ -109,14 +109,17 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .audio-control {
-                top: auto;
-                bottom: 20px;
-                right: 20px;
-                transform: none;
-                flex-direction: row;
-            }
-        }
+        .audio-control {
+        top: 50%; /* Posisi 50% dari atas */
+        left: 50%; /* Posisi 50% dari kiri */
+        transform: translate(-50%, -50%); /* Geser ke tengah */
+        bottom: auto; /* Hapus bottom sebelumnya */
+        right: auto; /* Hapus right sebelumnya */
+        flex-direction: row; /* Tetap horizontal */
+        width: auto; /* Lebar menyesuaikan konten */
+        white-space: nowrap; /* Mencegah wrap */
+    }
+}
     </style>
 </head>
 <body>
