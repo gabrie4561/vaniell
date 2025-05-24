@@ -112,6 +112,21 @@
     <button class="next-btn" onclick="window.location.href='question.html'">
         Click Here Bubieee
     </button>
-     <audio id="backgroundAudio" src="audio1.mp3" autoplay hidden></audio>
+    <!-- Tombol alternatif jika autoplay diblokir -->
+    <button id="playAudioBtn" onclick="document.getElementById('backgroundAudio').play()">Putar Musik</button>
+
+    <!-- Audio elemen -->
+    <audio id="backgroundAudio" src="audio1.mp3" autoplay hidden></audio>
+
+    <script>
+        // Jika autoplay diblokir, tampilkan tombol manual
+        window.addEventListener("load", function () {
+            const audio = document.getElementById("backgroundAudio");
+            audio.play().catch(function (error) {
+                console.warn("Autoplay diblokir. Menampilkan tombol manual.");
+                document.getElementById("playAudioBtn").style.display = "inline-block";
+            });
+        });
+    </script>
 </body>
 </html>
