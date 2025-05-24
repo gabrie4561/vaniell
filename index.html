@@ -65,6 +65,58 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* Audio Control Styles */
+        .audio-control {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(210, 54, 105, 0.3);
+        }
+        
+        .audio-btn {
+            background: none;
+            border: none;
+            color: #d23669;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-btn:hover {
+            background: rgba(210, 54, 105, 0.1);
+        }
+        
+        .volume-control {
+            width: 80px;
+            accent-color: #d23669;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .audio-control {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                transform: none;
+                flex-direction: row;
+            }
+        }
     </style>
 </head>
 <body>
@@ -112,20 +164,44 @@
     <button class="next-btn" onclick="window.location.href='question.html'">
         Click Here Bubieee
     </button>
-    <!-- Tombol alternatif jika autoplay diblokir -->
-    <button id="playAudioBtn" onclick="document.getElementById('backgroundAudio').play()">Putar Musik</button>
-
-    <!-- Audio elemen -->
-    <audio id="backgroundAudio" src="audio1.mp3" autoplay hidden></audio>
-
-    <script>
-        // Jika autoplay diblokir, tampilkan tombol manual
-        window.addEventListener("load", function () {
-            const audio = document.getElementById("backgroundAudio");
-            audio.play().catch(function (error) {
-                console.warn("Autoplay diblokir. Menampilkan tombol manual.");
-                document.getElementById("playAudioBtn").style.display = "inline-block";
-            });
+    <audio id="bgMusic" src="audio1.mp3" loop></audio>
+    
+    <div class="audio-control">
+        <button class="audio-btn" id="playPauseBtn">▶️</button>
+        <input type="range" class="volume-control" id="volumeControl" min="0" max="1" step="0.1" value="0.7">
+        </div>
+ <script>
+        const audio = document.getElementById('bgMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeControl = document.getElementById('volumeControl');
+        
+        // Try to autoplay (may be blocked by browsers)
+        audio.volume = 0.7;
+        audio.play().catch(e => console.log("Autoplay prevented:", e));
+        
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+        
+        // Volume control
+        volumeControl.addEventListener('input', () => {
+            audio.volume = volumeControl.value;
+        });
+        
+        // Update button state when audio starts/stops
+        audio.addEventListener('play', () => {
+            playPauseBtn.textContent = '⏸️';
+        });
+        
+        audio.addEventListener('pause', () => {
+            playPauseBtn.textContent = '▶️';
         });
     </script>
 </body>
