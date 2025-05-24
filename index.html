@@ -65,57 +65,46 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        /* Audio Control Styles */
-        .audio-control {
+                /* Simple Audio Button Styles */
+        .audio-btn-container {
             position: fixed;
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50px;
-            padding: 10px 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
             z-index: 1000;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(210, 54, 105, 0.3);
         }
         
-        .audio-btn {
-            background: none;
-            border: none;
+        .audio-btn-simple {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(210, 54, 105, 0.3);
             color: #d23669;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            width: 30px;
-            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
         
-        .audio-btn:hover {
+        .audio-btn-simple:hover {
             background: rgba(210, 54, 105, 0.1);
+            transform: scale(1.1);
         }
         
-        .volume-control {
-            width: 80px;
-            accent-color: #d23669;
-        }
-        
-       /* Responsive adjustments */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .audio-control {
-                top: 45%;
-                bottom: 45%;
+            .audio-btn-container {
+                top: auto;
+                bottom: 20px;
                 right: 20px;
                 transform: none;
-                flex-direction: row;
             }
+        }
     </style>
 </head>
 <body>
@@ -148,34 +137,36 @@
     
     <div class="gallery-container">
         <div class="gallery">
-            <img src="gambar1.jpg" alt="Foto kita 1">
-            <img src="gambar2.jpg" alt="Foto kita 2">
-            <img src="gambar3.jpg" alt="Foto kita 3">
-            <img src="gambar4.jpg" alt="Foto kita 4">
-            <img src="gambar5.jpg" alt="Foto kita 5">
-            <img src="gambar6.jpg" alt="Foto kita 6">
-            <img src="gambar7.jpg" alt="Foto kita 7">
-            <img src="gambar8.jpg" alt="Foto kita 8">
-            <img src="gambar9.jpg" alt="Foto kita 9">
-            <img src="gambar10.jpg" alt="Foto kita 10">
+            <img src="gambar1.jpg" alt="Foto1">
+            <img src="gambar2.jpg" alt="Foto2">
+            <img src="gambar3.jpg" alt="Foto3">
+            <img src="gambar4.jpg" alt="Foto4">
+            <img src="gambar5.jpg" alt="Foto5">
+            <img src="gambar6.jpg" alt="Foto6">
+            <img src="gambar7.jpg" alt="Foto7">
+            <img src="gambar8.jpg" alt="Foto8">
+            <img src="gambar9.jpg" alt="Foto9">
+            <img src="gambar10.jpg" alt="Foto10">
         </div>
     </div>
+    <audio id="bgMusic" src="audio1.mp3" loop></audio>
+    
+    <div class="audio-btn-container">
+        <button class="audio-btn-simple" id="playPauseBtn">▶️</button>
+    </div>
+    
     <button class="next-btn" onclick="window.location.href='question.html'">
         Click Here Bubieee
     </button>
-    <audio id="bgMusic" src="audio1.mp3" loop></audio>
-    
-    <div class="audio-control">
-        <button class="audio-btn" id="playPauseBtn">▶️</button>
-        <input type="range" class="volume-control" id="volumeControl" min="0" max="1" step="0.1" value="0.7">
-        </div>
- <script>
+
+    <script>
         const audio = document.getElementById('bgMusic');
         const playPauseBtn = document.getElementById('playPauseBtn');
-        const volumeControl = document.getElementById('volumeControl');
+        
+        // Set volume to 70% by default
+        audio.volume = 0.7;
         
         // Try to autoplay (may be blocked by browsers)
-        audio.volume = 0.7;
         audio.play().catch(e => console.log("Autoplay prevented:", e));
         
         // Play/Pause functionality
@@ -187,11 +178,6 @@
                 audio.pause();
                 playPauseBtn.textContent = '▶️';
             }
-        });
-        
-        // Volume control
-        volumeControl.addEventListener('input', () => {
-            audio.volume = volumeControl.value;
         });
         
         // Update button state when audio starts/stops
